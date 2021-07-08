@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 // Appel d'une vue par une route
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 // Exemple de route basée sur une fonction de type Closure
 Route::get('/bienvenue', function(){
@@ -15,21 +17,15 @@ Route::get('/bienvenue', function(){
 // Exemple de route liée à une méthode d'un controller
 Route::get('/user', 'UserController@index');
 
+// Exemple de route liée à une méthode de controller - nouveauté Laravel 8
+Route::get('/user/create', [UserController::class, 'create' ])->name('user.create');
+
 // Créer une route nommée  
 Route::post('/user/create', 'UserController@store')->name('user.store');
-
-// Exemple de route liée à une méthode de controller - nouveauté Laravel 8
-Route::get('/user/create',[ App\Http\Controllers\UserController::class, 'create' ])->name('user.create');
 
 // Utiliser un parametre dynamique dans une route
 // Par exemple : récupérer l'utilisateur qui porte l'ID 2
 Route::get('/user/{id}', 'UserController@show');
-
-// Envoyer des paramètres validés par une REGEX
-Route::get('/user/{id}', 'UserController@show')->where('id','[0-9]')->name('user.show');
-
-// Route avec parametre optionnnel par exemple le nom d'un User
-Route::get('/user/{name?}', 'UserController@find');
 
 /**
  * Créer des routes avec un préfixe 
@@ -37,16 +33,20 @@ Route::get('/user/{name?}', 'UserController@find');
  */
 Route::prefix('/admin')->group(function(){
     // Cette route correspondra à l'URL "/admin/users"
-    Route::get('/users', 'UserController@index');
+    Route::get('/users', 'UserController@index')->name('admin.index');
 });
 
 /**
  * Créer des routes nommées avec préfixe
  * Par exemple : faire en sorte qu'un groupe de route commencent par "admin." dans tous les noms
  */
-Route::name('posts.')->group(function(){
+Route::name('annonce.')->group(function(){
     // Cette route aura le nom automatiquement défini à "admin.users"
-    Route::get('/',function(){
-        return 'La liste des tous les utilisateur de la page admin';
+    Route::get('/annonce',function(){
+        return 'Voici la liste de toutes les annonces';
     })->name('index');
+
+    Route::get('/annonce/detail', function(){
+        return 'Voici le détail des annnonces';
+    })->name('details');
 });
