@@ -41,6 +41,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Forcer la récupération d'un Model par un champ précis. Par ex ici on récupère un User par son email
     public function getRouteKey()
     {
         return $this->email;

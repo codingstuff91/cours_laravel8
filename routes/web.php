@@ -24,8 +24,12 @@ Route::get('/user/create', [UserController::class, 'create' ])->name('user.creat
 Route::post('/user/create', 'UserController@store')->name('user.store');
 
 // Utiliser un parametre dynamique dans une route
-// Par exemple : récupérer l'utilisateur qui porte l'ID 2
-Route::get('/user/{id}', 'UserController@show');
+// Par exemple : récupérer l'utilisateur en envoyant un ID comme paramètre d'URL
+// Route::get('/user/{id}', 'UserController@show');
+
+// Préciser un paramètre bien précis d'un Model pour le récupérer
+// Par exemple : récupérer l'utilisateur par son adresse email
+Route::get('/user/{user:email}', 'UserController@show');
 
 /**
  * Créer des routes avec un préfixe 
