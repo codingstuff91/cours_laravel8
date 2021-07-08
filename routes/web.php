@@ -31,6 +31,9 @@ Route::post('/user/create', 'UserController@store')->name('user.store');
 // Par exemple : récupérer l'utilisateur par son adresse email
 Route::get('/user/{user:email}', 'UserController@show');
 
+// Si la méthode getRouteKeyName a été définie dans le Model on peut écrire ceci (Eloquent va chercher par l'email automatiquement)
+// Route::get('/user/{user}', 'UserController@show');
+
 /**
  * Créer des routes avec un préfixe 
  * Par ex : on veut que toutes nos routes commencent par "admin"
