@@ -42,9 +42,9 @@ class User extends Authenticatable
     ];
 
     // Forcer la récupération d'un Model par un champ précis. Par ex ici on récupère un User par son email
-    public function getRouteKey()
+    public function getRouteKeyName()
     {
-        return $this->email;
+        return 'email';
     }
 
     // Un user peut posseder plusieurs roles
