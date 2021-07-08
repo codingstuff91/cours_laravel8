@@ -7,6 +7,6 @@
     <title>Apprendre Laravel 8</title>
 </head>
 <body>
-    
+    @yield('content')
 </body>
 </html>
